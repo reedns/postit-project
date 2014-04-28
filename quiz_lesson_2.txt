@@ -1,0 +1,69 @@
+
+
+1. Name all the 7 (or 8) routes exposed by the resources keyword in the routes.rb file. Also name the 4 named routes, and how the request is routed to the controller/action.
+
+  resources :post =
+
+  get /posts              posts#index       
+  get /posts/new          posts#new
+  post /posts             posts#create
+  get /posts/obj          posts#show
+  get /posts/obj/edit     posts#edit  
+  put/patch /posts/obj    posts#update
+  delete posts/obj        posts#destroy
+
+  named routes: posts_path, post_path(obj), edit_post_path(obj), new_post_path
+
+2. What is REST and how does it relate to the resources routes?
+
+3. What's the major difference between model backed and non-model backed form helpers?
+
+  Model-backed form helpers are bound to a model object.  Unlike non-model backed form helpers you can't arbitrarly name parameters.  You can only use setter methods, virtual attributes or column names for the object.
+
+4. How does form_for know how to build the <form> element?
+
+  Through rails convention.  You must pass in the model object and the attributes you want to be able to update with the form.
+
+5. What's the general pattern we use in the actions that handle submission of model-backed forms (ie, the create and update actions)?
+  
+  def create
+    @post = Post.new(params.require(:post).permit(:title, :url, :description, category_ids: []))
+
+    if @post.save
+      flash[:notice] = "Your post was created!"
+      redirect_to posts_path
+    else
+      render :new
+    end
+  end
+
+  def update
+    @post = Post.find(params[:id])
+
+    if @post.update(params.require(:post).permit(:title, :url, :description, category_ids: []))
+      flash[:notice] = "Your post was updated!"
+      redirect_to post_path(@post)
+    else
+      render :edit
+    end
+  end
+
+6. How exactly do Rails validations get triggered? Where are the errors saved? How do we show the validation messages on the user interface?
+
+  They get triggered when data that doesn't meet the validation requirements tries to save to the database.  The errors are saved on the object model.  We show the errors by calling errors.full_messages on the model object in the view template.
+
+7. What are Rails helpers?
+    
+  Methods that are used in the view and that are saved separately from the view templates to avoid clutter.
+
+8. What are Rails partials?
+
+  Partials are view templates that can be used in another template.  Usually they contain code that will be used in multiple view templates.  The are saved with an underscore "_" at the begining of the file name.
+
+9. When do we use partials vs helpers?
+
+  Helpers are used when we want to extract out repetetive logic from view templates.  Partials are for extracting out repetetive html.
+
+10. When do we use non-model backed forms?
+
+  When you want to create a form that isn't bound to an object model.
