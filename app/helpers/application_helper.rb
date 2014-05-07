@@ -4,6 +4,10 @@ module ApplicationHelper
   end
 
   def pretty_date_time(date_time)
-    date_time.strftime("%m/%d/%Y %l:%M%P %Z")
+    if logged_in? && !current_user.time_zone.blank?
+      date_time = date_time.in_time_zone(current_user.time_zone)
+    end 
+
+    date_time.strftime("%m/%d/%Y | %l:%M%P %Z")
   end
 end

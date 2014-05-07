@@ -1,0 +1,5 @@
+<% if @vote.valid? %>
+  $("#post_<%= @post.to_param %>_vote").html("<%= @post.vote_total.to_s + (@post.vote_total == 1 ? ' vote' : ' votes') %>");
+<% else %>
+  alert("You can only vote once per post.")
+<% end %>

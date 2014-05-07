@@ -1,0 +1,11 @@
+<%= render "shared/content_title", title: "Enter Pin" %>
+
+<div class="well">
+  <%= form_tag "/pin" do %>
+    <div class="control-group">
+      <%= label_tag :pin, "Pin Number" %>
+      <%= text_field_tag :pin, params[:pin] || '' %>
+    </div>
+    <%= submit_tag "Login", class: "btn btn-success" %>
+  <% end %>
+</div>

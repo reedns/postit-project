@@ -2,13 +2,9 @@
   <li>
     <%= link_to "Postit!", root_path, :class => 'brand' %>
   </li>
-  <li>
-    <%= link_to "All Posts", posts_path %>
-  </li>
-</ul>
 
 <div class="btn-group nav_item">
-  <%= link_to "#", class: "btn btn-small dropdown-toggle", "data-toggle" => "dropdown" do %>
+  <%= link_to "#", class: "btn btn-small dropdown-toggle btn-primary", "data-toggle" => "dropdown" do %>
     Categories 
     <span class="caret"></span>
   <% end %>
@@ -16,8 +12,8 @@
     <% Category.all.each do |category| %>
       <li><%= link_to category.name, category_path(category) %></li>
     <% end %>
+    <% if logged_in? && current_user.admin? %>
     <li class="divider"></li>
-    <% if logged_in? %>
       <li>
         <%= link_to(new_category_path) do %>
           <i class="icon-plus"></i>
@@ -32,8 +28,8 @@
   <div class="nav_item">
     <%= link_to "New Post", new_post_path, class: "btn btn-small btn-success" %>
   </div>
-  <div class="btn-group nav_item">
-    <%= link_to "#", class: "btn btn-small dropdown-toggle", "data-toggle" => "dropdown" do %>
+  <div class="btn-group" id="nav-group">
+    <%= link_to "#", class: "btn btn-small dropdown-toggle btn-info", "data-toggle" => "dropdown" do %>
       <%= current_user.user_name %>
       <span class="caret"></span>
     <% end %>
@@ -59,12 +55,10 @@
     </ul>
   </div>
 <% else %>
-  <div class="nav_item">
+  <div class="btn-group" id="nav-group">
     <%= link_to "Login", login_path, class: "btn btn-small btn-primary" %>
-  </div>
-  <div class="nav_item">
-    <%= link_to "Register", register_path, class: "btn btn-small" %>
-  </div>
+    <%= link_to "Register", register_path, class: "btn btn-small btn-success" %>
+  </div>  
 <% end %>
 
 

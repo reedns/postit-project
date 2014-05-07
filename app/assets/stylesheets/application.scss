@@ -27,8 +27,13 @@
 }
 
 div.nav_item {
-  margin-left: 25px;
+  margin-left: 10px;
   float: left;
+}
+
+#nav-group {
+  margin-left: 850px;
+  float: right;
 }
 
 .label, .badge  {
@@ -41,4 +46,5 @@ div.nav_item {
 div.comment_votes {
   padding: 10px;
 }
+
 
